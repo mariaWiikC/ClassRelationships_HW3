@@ -2,25 +2,17 @@ package com.company;
 
 import java.util.ArrayList;
 
-class Project
+class Company
 {
-    private int projectId;
-    public static int nextProjectId = 0;
-    String name;
-
-    ArrayList<Task> tasks;
-
-    public Project(String name)
+    private ArrayList<Project> projects;
+    public Company()
     {
-        this.name = name;
-        this.projectId = nextProjectId;
-        nextProjectId++;
-        tasks = new ArrayList<>();
+        projects = new ArrayList<>();
     }
 
-    public void addTask(Task task)
+    public void addProject(Project project)
     {
-        tasks.add(task);
+        projects.add(project);
     }
 
     public String arrayToString (ArrayList array)
@@ -35,14 +27,70 @@ class Project
 
     public String toString()
     {
-        return name + ", id: " + projectId + ", Tasks: " + arrayToString(tasks);
+        return "List of projects: "+ "\n" + arrayToString(projects);
     }
 
+    public String getProjects()
+    {
+        return arrayToString(projects);
+    }
+
+    public void setProjects(ArrayList<Project> projects)
+    {
+        this.projects = projects;
+    }
+}
+
+class Project extends Company
+{
+    private int projectId;
+    public static int nextProjectId = 0;
+    public String name;
+
+    private ArrayList<Task> tasks;
+
+    public Project(String name)
+    {
+        this.name = name;
+        this.projectId = nextProjectId;
+        nextProjectId++;
+        tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task task)
+    {
+        tasks.add(task);
+    }
+
+    public String toString()
+    {
+        return name + ", id: " + projectId + " - Tasks: " + arrayToString(tasks) + "\n";
+    }
+
+    public int getProjectId()
+    {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId)
+    {
+        this.projectId = projectId;
+    }
+
+    public String getTasks()
+    {
+        return arrayToString(tasks);
+    }
+
+    public void setTasks(ArrayList<Task> tasks)
+    {
+        this.tasks = tasks;
+    }
 }
 
 class Task extends Project
 {
-    ArrayList<Worker> workers;
+    private ArrayList<Worker> workers;
 
     public Task(String name)
     {
@@ -59,11 +107,21 @@ class Task extends Project
     {
         return name + " (Workers: " + arrayToString(workers) + ")";
     }
+
+    public String getWorkers()
+    {
+        return arrayToString(workers);
+    }
+
+    public void setWorkers(ArrayList<Worker> workers)
+    {
+        this.workers = workers;
+    }
 }
 
 class Worker
 {
-    String name;
+    public String name;
 
     public Worker(String name)
     {
@@ -82,6 +140,11 @@ class Employee extends Worker
     {
         super(name);
     }
+
+    public String toString()
+    {
+        return name + " = Employee,";
+    }
 }
 
 class HiredContractor extends Worker
@@ -89,5 +152,10 @@ class HiredContractor extends Worker
     public HiredContractor(String name)
     {
         super(name);
+    }
+
+    public String toString()
+    {
+        return name + " = Hired contractor,";
     }
 }
